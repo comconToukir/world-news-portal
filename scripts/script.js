@@ -8,11 +8,24 @@ window.onload = async () => {
       }
       return res.json();
     })
-    .then(data => console.log(data.data.news_category))
+    .then(data => {
+      loadCategories(data.data.news_category)
+      console.log(data.data.news_category)
+    })
     .catch((error) => console.log(error))
   } catch (error) {
     console.error(`error caught from catch block`, error);
   }
 }
 
-// const loadCategories
+const loadCategories = data => {
+  const categorySection = document.getElementById('all-categories');
+  const nav = document.createElement('nav');
+  nav.classList.add("flex", "justify-between");
+  data.forEach(category => {
+    nav.innerHTML += `
+      <button id="category-${category.category_id}" >${category.category_name}</button>
+    `
+  });
+  categorySection.appendChild(nav);
+}
