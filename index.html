@@ -14,7 +14,7 @@
   <header class="w-3/4 mx-auto my-6">
     <nav class="navbar bg-base-100 p-0 ">
       <div class="flex-1">
-        <a class="btn btn-ghost border-0 normal-case text-2xl p-0">World News</a>
+        <a class="btn btn-ghost border-0 normal-case text-xl md:text-2xl xl:text-3xl p-0">World News</a>
       </div>
       <div class="flex-none">
         <button class="btn btn-square btn-ghost normal-case">
@@ -28,10 +28,29 @@
   </header>
   <hr class="w-4/5 mx-auto border-gray-600">
   <main>
-    <section id="all-categories"  class="w-3/4 mx-auto my-7">
+    <!-- loads all category -->
+    <section id="all-categories" class="w-3/4 mx-auto my-7">
 
     </section>
+
+    <!-- shows news found -->
+    <section id="news" class="w-3/4 mx-auto my-12">
+      <div id="news-count" class="rounded-lg text-xl bg-base-200 p-5 mb-12">
+        <p>Please select a category</p>
+      </div>
+      
+      <!-- TODO: sort by view count, rating, default and trending and todays pick button -->
+      <div></div>
+
+      <!-- shows all the news found -->
+      <div id="news-list">
+
+      </div>
+    </section>
   </main>
+  <footer>
+
+  </footer>
   <script src="scripts/script.js"></script>
 </body>
 </html>
