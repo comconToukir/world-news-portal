@@ -228,8 +228,9 @@ document.getElementById('all-categories').addEventListener('click', async e => {
 
     try {
       const data = await fetchNews(category_id);
-      newsStore = data;
-      const sortedData = sort(newsStore);
+      newsStore = await data;
+      const sortedData = await sort(newsStore);
+      console.log(sortedData);
 
       displayNewsCount(sortedData.length, category);
       displayNewsList(sortedData);
@@ -262,6 +263,8 @@ const sort = (data = newsStore) => {
     } else if (sortMethod === "published-date") {
       const newArr = data.sort((a, b) => new Date(b.author?.published_date) - new Date(a.author?.published_date));
       return newArr;
+    } else {
+      return data;
     }
   }
 }

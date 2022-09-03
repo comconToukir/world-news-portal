@@ -18,10 +18,10 @@
         <a class="btn btn-ghost border-0 normal-case text-xl md:text-2xl xl:text-3xl text-white"  href="#"><span class="text-accent">World </span>News</a>
       </div>
       <div class="flex-none">
-        <a class="btn btn-ghost normal-case text-xl" href="#">
+        <a class="btn btn-ghost normal-case text-lg md:text-xl" href="#">
           News
         </a>
-        <a class="btn btn-ghost normal-case ml-5 text-xl" href="blog.html">
+        <a class="btn btn-ghost normal-case ml-5 text-lg md:text-xl" href="blog.html">
           Blog
         </a>
       </div>
@@ -35,17 +35,19 @@
     </section>
 
     <section class="w-3/4 mx-auto my-7">
-      <div class="flex justify-between">
-        <div class="flex flex-1 items-center">
-          <p>Sort By:</p>
-          <select class="select w-full max-w-xs ml-4 bg-base-200" id="sort-by">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div class="flex flex-1 items-center justify-center  sm:justify-start">
+          <p class="flex-shrink-0">Sort By:</p>
+          <select class="select ml-4 bg-base-200" id="sort-by">
             <option disabled selected>Default</option>
             <option value="view-count">View Count</option>
             <option value="rating">Rating</option>
             <option value="published-date">Published Date</option>
           </select>
         </div>
-        <div>
+
+        <!-- TODO:: add functionality to trending and todays pick button -->
+        <div class="flex justify-center sm:justify-end">
           <button class="btn-accent border border-accent py-2 px-6 rounded-md">Today's Pick</button>
           <button class="btn-ghost border border-accent hover:bg-accent hover:text-white ml-2 py-2 px-6 rounded-md">Trending</button>
         </div>
@@ -60,7 +62,7 @@
 
       <!-- shows all the news found -->
       <div>
-        <button class="btn loading bg-transparent border-0 hidden w-full" id="spinner">loading</button>
+        <button class="btn loading bg-transparent border-0 hidden w-full my-48" id="spinner">loading</button>
         <div id="news-list">
 
         </div>
@@ -72,8 +74,8 @@
 
     </section>
   </main>
-  <footer>
-    
+  <footer class="bg-base-200 text-center py-7">
+    <p>Copyright 2021 News Portal</p>
   </footer>
   <script src="scripts/script.js"></script>
 </body>
