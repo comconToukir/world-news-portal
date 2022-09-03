@@ -2,7 +2,12 @@
 
 .active {
   color: #1fb2a6;
-  background-color: #1fb2a60a;
+  position: relative;
+  bottom: 5px;
+}
+
+.category-btn:hover {
+  background-color: #1fb2a60c;
   border-radius: 10px;
 }
 
