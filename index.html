@@ -7,6 +7,7 @@
   <title>World News</title>
   <link rel="stylesheet" href="styles/style.css">
   <link href="https://cdn.jsdelivr.net/npm/daisyui@2.24.0/dist/full.css" rel="stylesheet" type="text/css" />
+  <script src="https://kit.fontawesome.com/2bbf0526dc.js" crossorigin="anonymous"></script>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="scripts/tailwind.extended.js"></script>
 </head>
@@ -40,11 +41,28 @@
       </div>
       
       <!-- TODO: sort by view count, rating, default and trending and todays pick button -->
-      <div></div>
+      <div>
+        <!-- <div class="rating rating-lg rating-half">
+          <input type="radio" name="rating-10" class="rating-hidden" />
+          <input type="radio" name="rating-10" class="bg-green-500 mask mask-star-2 mask-half-1" disabled />
+          <input type="radio" name="rating-10" class="bg-green-500 mask mask-star-2 mask-half-2" disabled />
+          <input type="radio" name="rating-10" class="bg-green-500 mask mask-star-2 mask-half-1" disabled />
+          <input type="radio" name="rating-10" class="bg-green-500 mask mask-star-2 mask-half-2" disabled />
+          <input type="radio" name="rating-10" class="bg-green-500 mask mask-star-2 mask-half-1" disabled />
+          <input type="radio" name="rating-10" class="bg-green-500 mask mask-star-2 mask-half-2" disabled />
+          <input type="radio" name="rating-10" class="bg-green-500 mask mask-star-2 mask-half-1" disabled />
+          <input type="radio" name="rating-10" class="bg-green-500 mask mask-star-2 mask-half-2" disabled />
+          <input type="radio" name="rating-10" class="bg-green-500 mask mask-star-2 mask-half-1" checked disabled />
+          <input type="radio" name="rating-10" class="bg-green-500 mask mask-star-2 mask-half-2" disabled />
+        </div> -->
+      </div>
 
       <!-- shows all the news found -->
-      <div id="news-list">
+      <div>
+        <button class="btn loading bg-transparent border-0 hidden" id="spinner">loading</button>
+        <div id="news-list">
 
+        </div>
       </div>
     </section>
   </main>

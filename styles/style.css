@@ -3,3 +3,7 @@
 .card img {
   max-height: 300px;
 }
+
+.card .author-img {
+  max-height: 40px;
+}
