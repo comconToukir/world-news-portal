@@ -156,8 +156,8 @@ const displayNewsList = newsArr => {
               <p class="text-sm">${dataCheck(news.author.published_date?.split(' ')[0])}</p>
             </div>
           </div>
-          <div class="mx-2">
-            <p><i class="text-accent fa-regular fa-eye mr-2"></i>${dataCheck(news.total_view)}</p>
+          <div class="mx-2 ml-auto lg:mx-auto">
+            <p class=""><i class="text-accent fa-regular fa-eye mr-2"></i>${dataCheck(news.total_view)}</p>
           </div>
           <div class="rating rating-lg rating-half mx-2" id="ratings-${news._id}">
             <input type="radio" name="rating-${news._id}" class="rating-hidden" />
