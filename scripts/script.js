@@ -1,3 +1,7 @@
+// will be used to later store news array and do sorting
+let newsStore;
+
+// shows different categories in the ui
 const loadCategories = data => {
   const categorySection = document.getElementById('all-categories');
   const nav = document.createElement('nav');
@@ -19,7 +23,8 @@ const loadCategories = data => {
   }
 }
 
-const displayNewsCount = (length, category) => {
+// number of news for selected category is shown in the ui
+const displayNewsCount = (length, category = "Breaking News") => {
   const newsCount = document.getElementById('news-count');
   showSpinner('news-count', false);
   if (!length) {
@@ -29,6 +34,7 @@ const displayNewsCount = (length, category) => {
   }
 };
 
+// shows a spinner in the ui before data loads
 const showSpinner = isLoading => {
   const spinner = document.getElementById('spinner');
   if (isLoading) {
@@ -38,6 +44,7 @@ const showSpinner = isLoading => {
   }
 }
 
+// checks if data exits
 const dataCheck = data => {
   if(data) {
     return data;
@@ -58,7 +65,7 @@ const dataCheck = data => {
 // }
 
 
-
+// opens up modal with full news details
 const displayModal = async id => {
   try {
     const url = `https://openapi.programming-hero.com/api/news/${id}`;
@@ -126,9 +133,12 @@ const displayModal = async id => {
   }
 }
 
+
+// updates ui when category is selected
 const displayNewsList = newsArr => {
   const newsList = document.getElementById('news-list');
   const newsDiv = document.createElement('div');
+  newsList.innerHTML = ``;
 
   newsArr.forEach(news => {
     newsDiv.innerHTML += `
@@ -172,6 +182,7 @@ const displayNewsList = newsArr => {
   newsList.appendChild(newsDiv);
 };
 
+// when website opens fetches categories and first news category data and shows in the ui
 window.onload = async () => {
   showSpinner(true);
   try {
@@ -184,15 +195,11 @@ window.onload = async () => {
       return res.json();
     })
     .then(async data => {
-      loadCategories(data.data.news_category)
-
-      const url = `https://openapi.programming-hero.com/api/news/category/01`;
-      await fetch(url)
-      .then(res => res.json())
-      .then(data => {
-        displayNewsCount(data.data.length, "Breaking News");
-        displayNewsList(data.data);
-      })
+      loadCategories(data.data.news_category);
+      const news = await fetchNews();
+      displayNewsCount(news.length);
+      displayNewsList(news);
+      newsStore = news;
     })
     .catch((error) => console.log(error))
   } catch (error) {
@@ -200,6 +207,17 @@ window.onload = async () => {
   }
 }
 
+const fetchNews = async id => {
+  const category_id = await id || "01";
+  const url = `https://openapi.programming-hero.com/api/news/category/${category_id}`
+
+  const res = await fetch(url);
+  const data = await res.json();
+
+  return data.data;
+}
+
+// loads news data selected from category and shows in ui
 document.getElementById('all-categories').addEventListener('click', async e => {
   if (e.target.id.includes('category')) {
     const newsList = document.getElementById('news-list');
@@ -207,27 +225,21 @@ document.getElementById('all-categories').addEventListener('click', async e => {
     showSpinner(true);
     const category_id = e.target.id.split("-").pop();
     const category = e.target.innerText;
-    const url = `https://openapi.programming-hero.com/api/news/category/${category_id}`;
 
     try {
-      await fetch(url)
-      .then(res => {
-        if(!res.ok) {
-          throw new Error(`Network response was not ok`);
-        }
-        return res.json();
-      })
-      .then(data => {
-        displayNewsCount(data.data.length, category);
-        displayNewsList(data.data);
-      })
-      .catch((error) => console.log(error))
+      const data = await fetchNews(category_id);
+      newsStore = data;
+      const sortedData = sort(newsStore);
+
+      displayNewsCount(sortedData.length, category);
+      displayNewsList(sortedData);
     } catch (error) {
       console.error(`error caught from catch block`, error);
     }
   }
 })
 
+// closes modal when clicked outside modal
 window.onclick = function (e) {
   const modal = document.getElementById('modal-overlay');
   if (e.target.id === "modal-overlay") {
@@ -236,3 +248,26 @@ window.onclick = function (e) {
   }
 }
 
+// sorts news by selecting from options
+const select = document.getElementById('sort-by');
+const sort = (data = newsStore) => {
+  if (data) {
+    const sortMethod = select.value;
+    if (sortMethod === "view-count") {
+      const newArr = data.sort((a, b) => b.total_view - a.total_view);
+      return newArr;
+    } else if (sortMethod === "rating") {
+      const newArr = data.sort((a, b) => b.rating?.number - a.rating?.number);
+      return newArr;
+    } else if (sortMethod === "published-date") {
+      const newArr = data.sort((a, b) => new Date(b.author?.published_date) - new Date(a.author?.published_date));
+      return newArr;
+    }
+  }
+}
+
+// changing option will change news list
+select.addEventListener('change', () => {
+  const newArr = sort();
+  displayNewsList(newArr);
+})
