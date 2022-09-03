@@ -48,6 +48,75 @@ const dataCheck = data => {
 //   }
 // }
 
+
+
+const displayModal = async id => {
+  try {
+    const url = `https://openapi.programming-hero.com/api/news/${id}`;
+    await fetch(url)
+    .then(res => {
+      if(!res.ok) {
+        throw new Error(`Network response was not ok`);
+      }
+      return res.json();
+    })
+    .then(data => {
+      const [news] = data.data;
+      const modalContainer = document.getElementById('modal-section')
+  
+      modalContainer.innerHTML = `
+      <div class="modal-overlay" id="modal-overlay">
+        <div class="modal-div text-center w-5/6 md:w-3/5 xl:w-1/2 flex flex-col items-center bg-base-200">
+          <div class="relative w-full">
+            <button class="bg-sky-900 absolute right-3 top-3 py-4 px-6 rounded-xl font-bold" id="modal-close-btn">X</button>
+            <img class="object-contain w-full mb-5" src=${news.image_url} alt=""/>
+          </div>
+          <div class="flex mb-4">
+            ${news.others_info.is_todays_pick ? `<div class="badge badge-primary">Today's Pick</div>` : ""}
+            ${news.others_info.is_trending ? `<div class="badge badge-accent">Trending</div>` : ""}
+          </div>
+          <h2 class="mb-5 text-xl md:text-2xl xl:text-4xl">${news.title}</h2>
+          <p class="mb-7 font-light">Photo - ${news.details}</p>
+          <div class="grid grid-cols-3 items-center">
+            <div class="flex">
+              <img class="author-img rounded-full mr-2" src='${dataCheck(news.author.img)}' alt="" />
+              <div>
+                <p class="text-sm">${dataCheck(news.author.name)}</p>
+                <p class="text-sm">${dataCheck(news.author.published_date?.split(' ')[0])}</p>
+              </div>
+            </div>
+            <div class="mx-2">
+              <p><i class="fa-regular fa-eye mr-2"></i>${dataCheck(news.total_view)}</p>
+            </div>
+            <div class="rating rating-lg rating-half mx-2" id="ratings-${news._id}">
+              <input type="radio" name="rating-${news._id}" class="rating-hidden" />
+              <input type="radio" name="rating-${news._id}" class="bg-green-500 mask mask-star-2 mask-half-1" disabled />
+              <input type="radio" name="rating-${news._id}" class="bg-green-500 mask mask-star-2 mask-half-2" disabled />
+              <input type="radio" name="rating-${news._id}" class="bg-green-500 mask mask-star-2 mask-half-1" disabled />
+              <input type="radio" name="rating-${news._id}" class="bg-green-500 mask mask-star-2 mask-half-2" disabled />
+              <input type="radio" name="rating-${news._id}" class="bg-green-500 mask mask-star-2 mask-half-1" disabled />
+              <input type="radio" name="rating-${news._id}" class="bg-green-500 mask mask-star-2 mask-half-2" disabled />
+              <input type="radio" name="rating-${news._id}" class="bg-green-500 mask mask-star-2 mask-half-1" disabled />
+              <input type="radio" name="rating-${news._id}" class="bg-green-500 mask mask-star-2 mask-half-2" disabled />
+              <input type="radio" name="rating-${news._id}" class="bg-green-500 mask mask-star-2 mask-half-1" checked disabled />
+              <input type="radio" name="rating-${news._id}" class="bg-green-500 mask mask-star-2 mask-half-2" disabled />
+            </div>
+          </div>
+        </div>
+      </div>
+      `
+      document.getElementById('modal-close-btn').onclick = function () {
+        const modalDiv = document.getElementById('modal-overlay')
+        modalDiv.style.display ='none';
+        modalDiv.innerHTML = ``;
+      }
+    })
+    .catch((error) => console.log(error))
+  } catch (error) {
+    console.error(`error caught from catch block`, error);
+  }
+}
+
 const displayNewsList = newsArr => {
   const newsList = document.getElementById('news-list');
   const newsDiv = document.createElement('div');
@@ -60,7 +129,7 @@ const displayNewsList = newsArr => {
       <div class="card-body py-4 px-6">
         <h2 class="card-title mb-3 text-xl md:text-2xl xl:text-4xl">${news.title}</h2>
         <p class="font-light hidden lg:block">${news.details.split(" ").slice(0, 40).join(" ")}...</p>
-        <div class="card-actions flex justify-between items-center">
+        <div class="card-actions grid grid-cols-2 lg:grid-cols-4 items-center">
           <div class="flex">
             <img class="author-img rounded-full mr-2" src='${dataCheck(news.author.img)}' alt="" />
             <div>
@@ -68,10 +137,10 @@ const displayNewsList = newsArr => {
               <p class="text-sm">${dataCheck(news.author.published_date?.split(' ')[0])}</p>
             </div>
           </div>
-          <div>
-            <p class=""><i class="fa-regular fa-eye mr-2"></i>${dataCheck(news.total_view)}</p>
+          <div class="mx-2">
+            <p><i class="fa-regular fa-eye mr-2"></i>${dataCheck(news.total_view)}</p>
           </div>
-          <div class="rating rating-lg rating-half" id="ratings-${news._id}">
+          <div class="rating rating-lg rating-half mx-2" id="ratings-${news._id}">
             <input type="radio" name="rating-${news._id}" class="rating-hidden" />
             <input type="radio" name="rating-${news._id}" class="bg-green-500 mask mask-star-2 mask-half-1" disabled />
             <input type="radio" name="rating-${news._id}" class="bg-green-500 mask mask-star-2 mask-half-2" disabled />
@@ -84,7 +153,7 @@ const displayNewsList = newsArr => {
             <input type="radio" name="rating-${news._id}" class="bg-green-500 mask mask-star-2 mask-half-1" checked disabled />
             <input type="radio" name="rating-${news._id}" class="bg-green-500 mask mask-star-2 mask-half-2" disabled />
           </div>
-          <button class="bg-sky-900 py-1 px-4">Details</button>
+          <button class="bg-sky-900 py-1 px-6 w-fit ml-auto rounded-md" onclick="displayModal('${news._id}')">Details</button>
         </div>
       </div>
     </div>
@@ -142,3 +211,12 @@ document.getElementById('all-categories').addEventListener('click', async e => {
     }
   }
 })
+
+window.onclick = function (e) {
+  const modal = document.getElementById('modal-overlay');
+  if (e.target.id === "modal-overlay") {
+    modal.style.display = 'none';
+    modal.innerHTML = ``;
+  }
+}
+
