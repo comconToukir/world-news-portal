@@ -77,7 +77,7 @@ const displayModal = async id => {
           </div>
           <h2 class="mb-5 text-xl md:text-2xl xl:text-4xl">${news.title}</h2>
           <p class="mb-7 font-light">Photo - ${news.details}</p>
-          <div class="grid grid-cols-3 items-center">
+          <div class="grid grid-cols-3 items-center mb-5">
             <div class="flex">
               <img class="author-img rounded-full mr-2" src='${dataCheck(news.author.img)}' alt="" />
               <div>

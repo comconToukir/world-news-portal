@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>World News</title>
+  <link rel="stylesheet" href="styles/style.css">
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@2.24.0/dist/full.css" rel="stylesheet" type="text/css" />
+  <script src="https://kit.fontawesome.com/2bbf0526dc.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="scripts/tailwind.extended.js"></script>
+</head>
+<body class="font-roboto">
+  <header class="w-3/4 mx-auto my-6">
+    <nav class="navbar bg-base-100 p-0 ">
+      <div class="flex-1">
+        <a class="btn btn-ghost border-0 normal-case text-xl md:text-2xl xl:text-3xl p-0" href="index.html">World News</a>
+      </div>
+      <div class="flex-none">
+        <a class="btn btn-square btn-ghost normal-case" href="index.html">
+          News
+        </a>
+        <a class="btn btn-square btn-ghost normal-case ml-5" href="blog.html">
+          Blog
+        </a>
+      </div>
+    </nav>
+  </header>
+  <hr class="w-4/5 mx-auto border-gray-600">
+  <main>
+    <section class="w-11/12 md:w-3/4 mx-auto my-12">
+      <div tabindex="0" class="collapse collapse-arrow bg-base-200 rounded-box mb-3">
+        <div class="collapse-title text-xl font-medium">
+          1. Differences between var, let and const
+        </div>
+        <div class="collapse-content"> 
+            <ul class="list-disc  px-10 py-5">
+              <li><span class="text-orange-500">var</span> declarations are globally scoped or function scoped while <span class="text-orange-500">let</span> and <span class="text-orange-500">const</span> are block scoped.</li>
+              <li><span class="text-orange-500">var</span> variables can be updated and re-declared within its scope; <span class="text-orange-500">let</span> variables can be updated but not re-declared; <span class="text-orange-500">const</span> variables can neither be updated nor re-declared.</li>
+              <li>They are all hoisted to the top of their scope. But while <span class="text-orange-500">var</span> variables are initialized with undefined, <span class="text-orange-500">let</span> and <span class="text-orange-500">const</span> variables are not initialized.</li>
+              <li>While <span class="text-orange-500">var</span> and <span class="text-orange-500">let</span> can be declared without being initialized, <span class="text-orange-500">const</span> must be initialized during declaration.</li>
+            </ul>
+        </div>
+      </div>
+      <div tabindex="0" class="collapse collapse-arrow bg-base-200 rounded-box mb-3">
+        <div class="collapse-title text-xl font-medium">
+          2. Arrow function vs Regular function
+        </div>
+        <div class="collapse-content"> 
+          <ul class="list-disc  px-10 py-5">
+            <li>
+              We can write normal and arrow function in this way
+              <div class="mockup-code my-4">
+                <pre data-prefix="1"><code>// ES5</code></pre> 
+                <pre data-prefix="2"><code>var add = function(x, y) {</code></pre> 
+                <pre data-prefix="3"><code>return x + y</code></pre>
+                <pre data-prefix="4"><code>};</code></pre>
+                <pre data-prefix="5"><code> </code></pre>
+                <pre data-prefix="6"><code>// ES6</code></pre>
+                <pre data-prefix="7"><code>let add = (x, y) =>  x + y</code></pre>
+              </div>
+            </li>
+            <li>
+              In regular function, you have to use return keyword to return any value. If you don't return anything then the function will return undefined. Arrow functions behave in the same way when returning values. 
+              If the arrow function contains one expression, you can omit the curly braces, and then the expression will be implicitly returned.
+            </li>
+            <li>
+              In regular function, Arguments keywords can be used to access the arguments of which passed to function. Arrow functions do not have an arguments binding.
+            </li>
+            <li>
+              Regular functions are constructible, they can be called using the new keyword. However, arrow functions can never be used as constructor functions. Hence, they can never be invoked with the new keyword
+            </li>
+            <li>
+              Arrow functions can never have duplicate named parameters, whether in strict or non-strict mode.
+            </li>
+            <li>
+              In regular function, function gets hoisting at top. In arrow function, function get hoisted where you define. So, if you call the function before initialisation you will get referenceError.
+            </li>
+          </ul>
+          <p class="px-5">Click <a class="text-orange-500" href="https://medium.com/geekculture/regular-vs-arrow-function-1f8140fbcece">here</a> to learn more</p>
+        </div>
+      </div>
+      <div tabindex="0" class="collapse collapse-arrow bg-base-200 rounded-box mb-3">
+        <div class="collapse-title text-xl font-medium">
+          Differences between map, forEach, filter and find method
+        </div>
+        <div class="collapse-content"> 
+          <ul class="list-disc px-10 py-5">
+            <li><span class="text-orange-500">.map()</span> executes the same code on every element in an array and returns a new array with the updated elements.
+              <div class="mockup-code my-4">
+                <pre data-prefix="1"><code>let cost = [100,400,300,700];</code></pre> 
+                <pre data-prefix="2"><code>let newCost = cost.map(function(costItem){ return costItem / 10;</code></pre> 
+                <pre data-prefix="3"><code>});</code></pre>
+                <pre data-prefix="4"><code>console.log(newCost);</code></pre>
+              </div>
+            </li>
+            <li>
+              <span class="text-orange-500">.forEach()</span> is used to execute the same code on every element in an array but does not change the array and it returns undefined.
+              <div class="mockup-code my-4">
+                <pre data-prefix="1"><code>let food = ['mango','rice','pepper','pear'];</code></pre> 
+                <pre data-prefix="2"><code>food.forEach(function(foodItem){ console.log('I want to eat '+foodItem);</code></pre> 
+                <pre data-prefix="3"><code>});</code></pre>
+              </div>
+            </li>
+            <li>
+              <span class="text-orange-500">.filter()</span> checks every element in an array to see if it meets a certain criteria and returns a new array with the elements that return truthy for the criteria.
+              <div class="mockup-code my-4">
+                <pre data-prefix="1"><code>let cost = [100,400,50,40,700];</code></pre> 
+                <pre data-prefix="2"><code>let smallCost = cost.filter(function(costItem){ return costItem < 200</code></pre> 
+                <pre data-prefix="3"><code>});</code></pre>
+                <pre data-prefix="4"><code>console.log(smallCost);</code></pre>
+              </div>
+            </li>
+            <li>
+              Function <span class="text-orange-500">.find()</span> is also a search function like the previous but they differ in one small detail — this function returns only one match in an array. If in an array is more than one result, the function will return the first that has matched.
+              <div class="mockup-code my-4">
+                <pre data-prefix="1"><code>const array = [{ name: "John Doe"}, {name: "Jane Doe"}];</code></pre> 
+                <pre data-prefix="2"><code>let smallCost = cost.filter(function(costItem){ return costItem < 200</code></pre> 
+                <pre data-prefix="3"><code>array.find(person => person.name == "John Doe"</code></pre>
+                <pre data-prefix="4"><code>// returns {name: "John Doe"}</code></pre>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div tabindex="0" class="collapse collapse-arrow bg-base-200 rounded-box mb-3">
+        <div class="collapse-title text-xl font-medium">
+          Why is template string used
+        </div>
+        <div class="collapse-content"> 
+          <ul class="list-disc px-10 py-5">
+            <li>
+              <span class="text-orange-500">Template strings</span> are a powerful feature of modern JavaScript released in ES6. It lets us insert/interpolate variables and expressions into strings without needing to concatenate like in older versions of JavaScript. It allows us to create strings that are complex and contain dynamic elements.
+              <div class="mockup-code my-4">
+                <pre data-prefix="1"><code>const a = 5;</code></pre> 
+                <pre data-prefix="2"><code>const b = 10;</code></pre> 
+                <pre data-prefix="3"><code>console.log(`Fifteen is ${a + b} and</code></pre>
+                <pre data-prefix="4"><code>not ${2 * a + b}.`);</code></pre>
+                <pre data-prefix="5"><code>// "Fifteen is 15 and</code></pre>
+                <pre data-prefix="6"><code>// not 20."</code></pre>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer>
+    
+  </footer>
+</body>
