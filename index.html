@@ -15,13 +15,13 @@
   <header class="w-3/4 mx-auto my-6">
     <nav class="navbar bg-base-100 p-0 ">
       <div class="flex-1">
-        <a class="btn btn-ghost border-0 normal-case text-xl md:text-2xl xl:text-3xl"  href="#"><span class="text-accent">World </span>News</a>
+        <a class="btn btn-ghost border-0 normal-case text-xl md:text-2xl xl:text-3xl text-white"  href="#"><span class="text-accent">World </span>News</a>
       </div>
       <div class="flex-none">
-        <a class="btn btn-ghost normal-case" href="#">
+        <a class="btn btn-ghost normal-case text-xl" href="#">
           News
         </a>
-        <a class="btn btn-ghost normal-case ml-5" href="blog.html">
+        <a class="btn btn-ghost normal-case ml-5 text-xl" href="blog.html">
           Blog
         </a>
       </div>
@@ -34,14 +34,27 @@
 
     </section>
 
-    <!-- shows news found -->
+    <section class="w-3/4 mx-auto my-7">
+      <div class="flex justify-between">
+        <div class="flex flex-1 items-center">
+          <p>Sort By:</p>
+          <select class="select w-full max-w-xs ml-4 bg-base-200" id="sort-by">
+            <option disabled selected>Default</option>
+            <option value="view-count">View Count</option>
+            <option value="rating">Rating</option>
+          </select>
+        </div>
+        <div>
+          <button class="btn-accent border border-accent py-2 px-6 rounded-md">Today's Pick</button>
+          <button class="btn-ghost border border-accent hover:bg-accent hover:text-white ml-2 py-2 px-6 rounded-md">Trending</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- shows news count found -->
     <section id="news" class="w-3/4 mx-auto my-12">
       <div id="news-count" class="rounded-lg text-xl bg-base-200 p-5 mb-12">
         <p>Please select a category</p>
-      </div>
-      
-      <!-- TODO: sort by view count, rating, default and trending and todays pick button -->
-      <div>
       </div>
 
       <!-- shows all the news found -->
