@@ -37,29 +37,22 @@ const dataCheck = data => {
   }
 }
 
-const getRatings = data => {
-  if (typeof data !== "number") {
-    return data;
-  } else {
-    const rating = Math.floor(((data % 1) * 2) + (parseInt(data) * 2));
-    const ratingsDiv = document.createElement('div');
-    for (let i = 0; i < 10; i++) {
-      ratingsDiv.innerHTML += `<input type="radio" name="rating-10" class="bg-green-500 mask mask-star-2 mask-half-1" disabled />`;
-    }
-    ratingsDiv.childNodes[rating].classList.add("checked");
-    console.log(rating);
-    console.log(ratingsDiv);
-    return ratingsDiv;
-  }
-
-}
+// const getRatings = (data, id) => {
+//   if (typeof data !== "number") {
+//     return data;
+//   } else {
+//     const rating = Math.floor(((data % 1) * 2) + (parseInt(data) * 2));
+//     const ratingsDiv = document.getElementById("ratings-"+id);
+//     console.log(data, rating, ratingsDiv)
+//     // ratingsDiv.childNodes[rating].classList.add('checked');
+//   }
+// }
 
 const displayNewsList = newsArr => {
   const newsList = document.getElementById('news-list');
   const newsDiv = document.createElement('div');
 
   newsArr.forEach(news => {
-    console.log(news)
     newsDiv.innerHTML += `
     <div class="card md:card-side bg-base-200 shadow-lg mb-7 p-2">
       <figure><img class="hidden md:block" src=${news.thumbnail_url} alt="News Thumbnail"></figure>
@@ -78,14 +71,26 @@ const displayNewsList = newsArr => {
           <div>
             <p class=""><i class="fa-regular fa-eye mr-2"></i>${dataCheck(news.total_view)}</p>
           </div>
-          <div>
-            ${getRatings(dataCheck(news.rating?.number))}
+          <div class="rating rating-lg rating-half" id="ratings-${news._id}">
+            <input type="radio" name="rating-${news._id}" class="rating-hidden" />
+            <input type="radio" name="rating-${news._id}" class="bg-green-500 mask mask-star-2 mask-half-1" disabled />
+            <input type="radio" name="rating-${news._id}" class="bg-green-500 mask mask-star-2 mask-half-2" disabled />
+            <input type="radio" name="rating-${news._id}" class="bg-green-500 mask mask-star-2 mask-half-1" disabled />
+            <input type="radio" name="rating-${news._id}" class="bg-green-500 mask mask-star-2 mask-half-2" disabled />
+            <input type="radio" name="rating-${news._id}" class="bg-green-500 mask mask-star-2 mask-half-1" disabled />
+            <input type="radio" name="rating-${news._id}" class="bg-green-500 mask mask-star-2 mask-half-2" disabled />
+            <input type="radio" name="rating-${news._id}" class="bg-green-500 mask mask-star-2 mask-half-1" disabled />
+            <input type="radio" name="rating-${news._id}" class="bg-green-500 mask mask-star-2 mask-half-2" disabled />
+            <input type="radio" name="rating-${news._id}" class="bg-green-500 mask mask-star-2 mask-half-1" checked disabled />
+            <input type="radio" name="rating-${news._id}" class="bg-green-500 mask mask-star-2 mask-half-2" disabled />
           </div>
           <button class="bg-sky-900 py-1 px-4">Details</button>
         </div>
       </div>
     </div>
     `
+          // console.log(news._id)
+          // getRatings(dataCheck(news.rating?.number), news._id);
   })
   showSpinner(false);
   newsList.appendChild(newsDiv);
