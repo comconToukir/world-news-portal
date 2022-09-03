@@ -1,5 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
 
+.active {
+  color: #1fb2a6;
+  background-color: #1fb2a60a;
+  border-radius: 10px;
+}
+
 .card img {
   max-height: 300px;
 }

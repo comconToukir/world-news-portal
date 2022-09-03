@@ -1,13 +1,22 @@
 const loadCategories = data => {
   const categorySection = document.getElementById('all-categories');
   const nav = document.createElement('nav');
-  nav.classList.add("flex", "justify-between");
+  nav.classList.add("grid", "grid-cols-2", "sm:grid-cols-3", "md:grid-cols-4", "xl:grid-cols-8", "gap-2");
   data.forEach(category => {
     nav.innerHTML += `
-      <button id="category-${category.category_id}" >${category.category_name}</button>
+      <button id="category-${category.category_id}" class="category-btn text-left xl:text-center active:text-accent p-3">${category.category_name}</button>
     `
   });
+  nav.children[0].classList.add("active");
   categorySection.appendChild(nav);
+  const btns = document.getElementsByClassName('category-btn');
+  for (const btn of btns) {
+    btn.addEventListener('click', e => {
+      const current = document.getElementsByClassName('active');
+      current[0].classList.remove("active");
+      e.target.classList.add("active");
+    })
+  }
 }
 
 const displayNewsCount = (length, category) => {
@@ -68,7 +77,7 @@ const displayModal = async id => {
       <div class="modal-overlay" id="modal-overlay">
         <div class="modal-div text-center w-5/6 md:w-3/5 xl:w-1/2 flex flex-col items-center bg-base-200">
           <div class="relative w-full">
-            <button class="bg-sky-900 absolute right-3 top-3 py-4 px-6 rounded-xl font-bold" id="modal-close-btn">X</button>
+            <button class="badge-accent absolute right-3 top-3 py-4 px-6 rounded-xl font-bold" id="modal-close-btn">X</button>
             <img class="object-contain w-full mb-5" src=${news.image_url} alt=""/>
           </div>
           <div class="flex mb-4">
@@ -86,20 +95,20 @@ const displayModal = async id => {
               </div>
             </div>
             <div class="mx-2">
-              <p><i class="fa-regular fa-eye mr-2"></i>${dataCheck(news.total_view)}</p>
+              <p><i class="text-accent fa-regular fa-eye mr-2"></i>${dataCheck(news.total_view)}</p>
             </div>
             <div class="rating rating-lg rating-half mx-2" id="ratings-${news._id}">
               <input type="radio" name="rating-${news._id}" class="rating-hidden" />
-              <input type="radio" name="rating-${news._id}" class="bg-green-500 mask mask-star-2 mask-half-1" disabled />
-              <input type="radio" name="rating-${news._id}" class="bg-green-500 mask mask-star-2 mask-half-2" disabled />
-              <input type="radio" name="rating-${news._id}" class="bg-green-500 mask mask-star-2 mask-half-1" disabled />
-              <input type="radio" name="rating-${news._id}" class="bg-green-500 mask mask-star-2 mask-half-2" disabled />
-              <input type="radio" name="rating-${news._id}" class="bg-green-500 mask mask-star-2 mask-half-1" disabled />
-              <input type="radio" name="rating-${news._id}" class="bg-green-500 mask mask-star-2 mask-half-2" disabled />
-              <input type="radio" name="rating-${news._id}" class="bg-green-500 mask mask-star-2 mask-half-1" disabled />
-              <input type="radio" name="rating-${news._id}" class="bg-green-500 mask mask-star-2 mask-half-2" disabled />
-              <input type="radio" name="rating-${news._id}" class="bg-green-500 mask mask-star-2 mask-half-1" checked disabled />
-              <input type="radio" name="rating-${news._id}" class="bg-green-500 mask mask-star-2 mask-half-2" disabled />
+              <input type="radio" name="rating-${news._id}" class="bg-accent ml-1 mask mask-star-2 mask-half-1" disabled />
+              <input type="radio" name="rating-${news._id}" class="bg-accent mr-1 mask mask-star-2 mask-half-2" disabled />
+              <input type="radio" name="rating-${news._id}" class="bg-accent ml-1 mask mask-star-2 mask-half-1" disabled />
+              <input type="radio" name="rating-${news._id}" class="bg-accent mr-1 mask mask-star-2 mask-half-2" disabled />
+              <input type="radio" name="rating-${news._id}" class="bg-accent ml-1 mask mask-star-2 mask-half-1" disabled />
+              <input type="radio" name="rating-${news._id}" class="bg-accent mr-1 mask mask-star-2 mask-half-2" disabled />
+              <input type="radio" name="rating-${news._id}" class="bg-accent ml-1 mask mask-star-2 mask-half-1" disabled />
+              <input type="radio" name="rating-${news._id}" class="bg-accent mr-1 mask mask-star-2 mask-half-2" disabled />
+              <input type="radio" name="rating-${news._id}" class="bg-accent ml-1 mask mask-star-2 mask-half-1" checked disabled />
+              <input type="radio" name="rating-${news._id}" class="bg-accent mr-1 mask mask-star-2 mask-half-2" disabled />
             </div>
           </div>
         </div>
@@ -138,34 +147,33 @@ const displayNewsList = newsArr => {
             </div>
           </div>
           <div class="mx-2">
-            <p><i class="fa-regular fa-eye mr-2"></i>${dataCheck(news.total_view)}</p>
+            <p><i class="text-accent fa-regular fa-eye mr-2"></i>${dataCheck(news.total_view)}</p>
           </div>
           <div class="rating rating-lg rating-half mx-2" id="ratings-${news._id}">
             <input type="radio" name="rating-${news._id}" class="rating-hidden" />
-            <input type="radio" name="rating-${news._id}" class="bg-green-500 mask mask-star-2 mask-half-1" disabled />
-            <input type="radio" name="rating-${news._id}" class="bg-green-500 mask mask-star-2 mask-half-2" disabled />
-            <input type="radio" name="rating-${news._id}" class="bg-green-500 mask mask-star-2 mask-half-1" disabled />
-            <input type="radio" name="rating-${news._id}" class="bg-green-500 mask mask-star-2 mask-half-2" disabled />
-            <input type="radio" name="rating-${news._id}" class="bg-green-500 mask mask-star-2 mask-half-1" disabled />
-            <input type="radio" name="rating-${news._id}" class="bg-green-500 mask mask-star-2 mask-half-2" disabled />
-            <input type="radio" name="rating-${news._id}" class="bg-green-500 mask mask-star-2 mask-half-1" disabled />
-            <input type="radio" name="rating-${news._id}" class="bg-green-500 mask mask-star-2 mask-half-2" disabled />
-            <input type="radio" name="rating-${news._id}" class="bg-green-500 mask mask-star-2 mask-half-1" checked disabled />
-            <input type="radio" name="rating-${news._id}" class="bg-green-500 mask mask-star-2 mask-half-2" disabled />
+            <input type="radio" name="rating-${news._id}" class="bg-accent ml-1 mask mask-star-2 mask-half-1" disabled />
+            <input type="radio" name="rating-${news._id}" class="bg-accent mr-1 mask mask-star-2 mask-half-2" disabled />
+            <input type="radio" name="rating-${news._id}" class="bg-accent ml-1 mask mask-star-2 mask-half-1" disabled />
+            <input type="radio" name="rating-${news._id}" class="bg-accent mr-1 mask mask-star-2 mask-half-2" disabled />
+            <input type="radio" name="rating-${news._id}" class="bg-accent ml-1 mask mask-star-2 mask-half-1" disabled />
+            <input type="radio" name="rating-${news._id}" class="bg-accent mr-1 mask mask-star-2 mask-half-2" disabled />
+            <input type="radio" name="rating-${news._id}" class="bg-accent ml-1 mask mask-star-2 mask-half-1" disabled />
+            <input type="radio" name="rating-${news._id}" class="bg-accent mr-1 mask mask-star-2 mask-half-2" disabled />
+            <input type="radio" name="rating-${news._id}" class="bg-accent ml-1 mask mask-star-2 mask-half-1" checked disabled />
+            <input type="radio" name="rating-${news._id}" class="bg-accent mr-1 mask mask-star-2 mask-half-2" disabled />
           </div>
-          <button class="bg-sky-900 py-1 px-6 w-fit ml-auto rounded-md" onclick="displayModal('${news._id}')">Details</button>
+          <button class="text-white bg-accent py-1 px-6 w-fit ml-auto rounded-md" onclick="displayModal('${news._id}')">Details</button>
         </div>
       </div>
     </div>
     `
-          // console.log(news._id)
-          // getRatings(dataCheck(news.rating?.number), news._id);
   })
   showSpinner(false);
   newsList.appendChild(newsDiv);
 };
 
 window.onload = async () => {
+  showSpinner(true);
   try {
     const url = `https://openapi.programming-hero.com/api/news/categories`;
     await fetch(url)
@@ -175,8 +183,16 @@ window.onload = async () => {
       }
       return res.json();
     })
-    .then(data => {
+    .then(async data => {
       loadCategories(data.data.news_category)
+
+      const url = `https://openapi.programming-hero.com/api/news/category/01`;
+      await fetch(url)
+      .then(res => res.json())
+      .then(data => {
+        displayNewsCount(data.data.length, "Breaking News");
+        displayNewsList(data.data);
+      })
     })
     .catch((error) => console.log(error))
   } catch (error) {
